@@ -12,6 +12,10 @@ app.get("/", async (request, response) => {
   const XYdifferenceFromCenter = drones.map((drone) => {
     const yDifference = Math.abs(250000 - drone.positionY);
     const xDifference = Math.abs(250000 - drone.positionX);
+    const getHypotenuse = (sideA, sideB) => {
+      return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
+    };
+    console.log("this should work", getHypotenuse(xDifference, yDifference));
     if (yDifference > 100000 || xDifference > 100000) {
       return drone;
     }
