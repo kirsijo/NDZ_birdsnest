@@ -9,26 +9,28 @@ app.get("/", async (request, response) => {
   );
   const parsedData = await xml2js(data.data);
   const drones = parsedData.report.capture[0].drone;
-  const XYdifferenceFromCenter = drones.map((drone) => {
+  const dronesWithinNDZ = drones.map((drone) => {
     const yDifference = Math.abs(250000 - drone.positionY);
     const xDifference = Math.abs(250000 - drone.positionX);
     const getHypotenuse = (sideA, sideB) => {
       return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
     };
-    console.log("this should work", getHypotenuse(xDifference, yDifference));
-    if (yDifference > 100000 || xDifference > 100000) {
+    const distance = getHypotenuse(xDifference, yDifference);
+    if (distance <= 100000) {
       return drone;
     }
-    console.log("Ydifference", yDifference);
-    console.log("Xdifference", xDifference);
   });
 
-  const NDZviolators = XYdifferenceFromCenter.filter(
-    (drone) => drone !== undefined
-  );
+  const NDZviolators = dronesWithinNDZ.filter((drone) => drone !== undefined);
 
-  console.log("XYDifference map :", XYdifferenceFromCenter);
-  console.log("NDZviolators,", NDZviolators);
+  let endpoints = NDZviolators.map((e) => {
+    return e.serialNumber[0];
+  });
+
+  console.log(endpoints);
+
+  // console.log("XYDifference map :", dronesWithinNDZ);
+  // console.log("NDZviolators,", NDZviolators);
   response.send(NDZviolators);
 });
 
