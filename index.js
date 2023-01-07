@@ -3,6 +3,13 @@ const app = express();
 const axios = require("axios");
 const xml2js = require("xml2js").parseStringPromise;
 
+const droneDistance = [];
+const contactDetails = [];
+
+const violators = droneDistance.map((drone, index) => {
+  return { distance: drone.distanceInMeters, contact: contactDetails[index] };
+});
+
 app.get("/", async (request, response) => {
   const data = await axios.get(
     "https://assignments.reaktor.com/birdnest/drones"
@@ -16,7 +23,12 @@ app.get("/", async (request, response) => {
       return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
     };
     const distance = getHypotenuse(xDifference, yDifference);
+    const distanceInMeters = (distance / 1000).toFixed(2);
     if (distance < 100000) {
+      const singleViolator = {
+        distanceInMeters: distanceInMeters,
+      };
+      droneDistance.push(singleViolator);
       return drone;
     }
   });
@@ -32,15 +44,13 @@ app.get("/", async (request, response) => {
       const response = await axios.get(
         `https://assignments.reaktor.com/birdnest/pilots/${serialNumber}`
       );
-      const data = response.data;
+      const contact = response.data;
+      contactDetails.push(contact);
       return data;
     })
   );
   console.log("serialNumbers", serialNumbers);
-
-  // console.log("XYDifference map :", dronesWithinNDZ);
-  // console.log("NDZviolators,", NDZviolators);
-  response.send(NDZviolatorsContact);
+  response.send(violators);
 });
 
 const PORT = 3001;
