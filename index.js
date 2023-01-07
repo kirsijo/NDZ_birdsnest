@@ -6,10 +6,6 @@ const xml2js = require("xml2js").parseStringPromise;
 const droneDistance = [];
 const contactDetails = [];
 
-const violators = droneDistance.map((drone, index) => {
-  return { distance: drone.distanceInMeters, contact: contactDetails[index] };
-});
-
 app.get("/", async (request, response) => {
   const data = await axios.get(
     "https://assignments.reaktor.com/birdnest/drones"
@@ -50,6 +46,9 @@ app.get("/", async (request, response) => {
     })
   );
   console.log("serialNumbers", serialNumbers);
+  const violators = droneDistance.map((drone, index) => {
+    return { distance: drone.distanceInMeters, contact: contactDetails[index] };
+  });
   response.send(violators);
 });
 
