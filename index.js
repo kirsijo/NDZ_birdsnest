@@ -23,20 +23,20 @@ app.get("/", async (request, response) => {
 
   const NDZviolators = dronesWithinNDZ.filter((drone) => drone !== undefined);
 
-  let endpoints = NDZviolators.map((e) => {
+  const serialNumbers = NDZviolators.map((e) => {
     return e.serialNumber[0];
   });
 
-  let NDZviolatorsContact = await Promise.all(
-    endpoints.map(async (endpoint) => {
+  const NDZviolatorsContact = await Promise.all(
+    serialNumbers.map(async (serialNumber) => {
       const response = await axios.get(
-        `https://assignments.reaktor.com/birdnest/pilots/${endpoint}`
+        `https://assignments.reaktor.com/birdnest/pilots/${serialNumber}`
       );
       const data = response.data;
       return data;
     })
   );
-  console.log("endpoints", endpoints);
+  console.log("serialNumbers", serialNumbers);
 
   // console.log("XYDifference map :", dronesWithinNDZ);
   // console.log("NDZviolators,", NDZviolators);
