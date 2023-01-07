@@ -12,6 +12,7 @@ app.get("/", async (request, response) => {
   );
   const parsedData = await xml2js(data.data);
   const drones = parsedData.report.capture[0].drone;
+  console.log(parsedData.report.capture);
   const dronesWithinNDZ = drones.map((drone) => {
     const yDifference = Math.abs(250000 - drone.positionY);
     const xDifference = Math.abs(250000 - drone.positionX);
@@ -23,6 +24,7 @@ app.get("/", async (request, response) => {
     if (distance < 100000) {
       const singleViolator = {
         distanceInMeters: distanceInMeters,
+        time: parsedData.report.capture[0]["$"].snapshotTimestamp,
       };
       droneDistance.push(singleViolator);
       return drone;
@@ -47,7 +49,11 @@ app.get("/", async (request, response) => {
   );
   console.log("serialNumbers", serialNumbers);
   const violators = droneDistance.map((drone, index) => {
-    return { distance: drone.distanceInMeters, contact: contactDetails[index] };
+    return {
+      distance: drone.distanceInMeters,
+      time: drone.time,
+      contact: contactDetails[index],
+    };
   });
   response.send(violators);
 });
