@@ -16,7 +16,7 @@ app.get("/", async (request, response) => {
       return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
     };
     const distance = getHypotenuse(xDifference, yDifference);
-    if (distance <= 100000) {
+    if (distance < 100000) {
       return drone;
     }
   });
@@ -27,11 +27,20 @@ app.get("/", async (request, response) => {
     return e.serialNumber[0];
   });
 
-  console.log(endpoints);
+  let NDZviolatorsContact = await Promise.all(
+    endpoints.map(async (endpoint) => {
+      const response = await axios.get(
+        `https://assignments.reaktor.com/birdnest/pilots/${endpoint}`
+      );
+      const data = response.data;
+      return data;
+    })
+  );
+  console.log("endpoints", endpoints);
 
   // console.log("XYDifference map :", dronesWithinNDZ);
   // console.log("NDZviolators,", NDZviolators);
-  response.send(NDZviolators);
+  response.send(NDZviolatorsContact);
 });
 
 const PORT = 3001;
