@@ -1,7 +1,17 @@
 import React from "react";
 
-const DroneCard = () => {
-    <div>Drone card will be here</div>
-}
+const DroneCard = (props) => {
+  const { distance, lastname, firstname, email, phonenumber } = props;
+  return (
+    <div className="dronecard">
+      <p>
+        {firstname} {lastname}
+      </p>
+      <p>{distance}</p>
+      <p>{email}</p>
+      <p>{phonenumber}</p>
+    </div>
+  );
+};
 
 export default DroneCard;

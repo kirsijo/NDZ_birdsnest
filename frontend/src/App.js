@@ -5,12 +5,14 @@ import { useState, useEffect } from "react";
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getDroneData = async () => {
     const { data } = await axios.get("http://localhost:3001/").catch((err) => {
       console.log(err);
     });
     setData(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -25,7 +27,22 @@ const App = () => {
         <header>NDZ - Operation Bird's Nest</header>
       </div>
       <p>Drone Sightings</p>
-      <div className="drone-container"></div>
+      <div className="drone-container">
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          data.map((d) => (
+            <DroneCard
+              key={d.contact.pilotId}
+              distance={d.distance}
+              firstname={d.contact.firstName}
+              lastname={d.contact.lastName}
+              email={d.contact.email}
+              phonenumber={d.contact.phoneNumber}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };
