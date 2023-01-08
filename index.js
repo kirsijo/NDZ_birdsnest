@@ -55,7 +55,23 @@ app.get("/", async (request, response) => {
       contact: contactDetails[index],
     };
   });
-  response.send(violators);
+
+  console.log(violators);
+
+  violatorsWithin10Minutes = violators.filter((violator) => {
+    const timeNow = new Date();
+    const MSperMinute = 60000;
+    const tenMinsago = new Date(timeNow - 10 * MSperMinute);
+    console.log("ten mins ago", tenMinsago);
+    const formatViolatorDate = new Date(violator.time);
+    if (formatViolatorDate > tenMinsago) {
+      return violator;
+    }
+  });
+
+  console.log("last 10 minutes", violatorsWithin10Minutes);
+
+  response.send(violatorsWithin10Minutes);
 });
 
 const PORT = 3001;
