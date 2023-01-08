@@ -24,7 +24,9 @@ const App = () => {
   return (
     <div className="App">
       <div className="header">
-        <header>NDZ - Operation Bird's Nest</header>
+        <header>
+          <h1>NDZ - Operation Bird's Nest</h1>
+        </header>
       </div>
       <p>Drone Sightings</p>
       <div className="drone-container">
