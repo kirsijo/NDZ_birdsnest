@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const axios = require("axios");
 const xml2js = require("xml2js").parseStringPromise;
+const cors = require("cors");
+
+app.use(cors());
 
 const droneDistance = [];
 const contactDetails = [];
