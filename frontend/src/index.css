@@ -29,8 +29,11 @@ p {
 }
 
 .dronecard {
+  padding: 10px;
+  margin: 20px;
   border-color: blueviolet;
   border-width: 2px;
+  border-style: double;
   border-radius: 4px;
 }
 
