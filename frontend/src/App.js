@@ -1,5 +1,6 @@
-import "./App.css";
+import "./index.css";
 import DroneCard from "./components/DroneCard";
+import NoSightings from "./components/NoSightings";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
