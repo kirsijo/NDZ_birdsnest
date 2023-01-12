@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 
 const DroneCard = (props) => {
   const { distance, lastname, firstname, email, phonenumber } = props;
