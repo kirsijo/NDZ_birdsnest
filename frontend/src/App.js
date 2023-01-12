@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     getDroneData();
-    const interval = setInterval(() => getDroneData(), 10000);
+    const interval = setInterval(() => getDroneData(), 35000);
     return () => {
       clearInterval(interval);
     };

@@ -31,7 +31,25 @@ p {
 .dronecard {
   padding: 10px;
   margin: 20px;
-  border-color: blueviolet;
+  border-color: red;
+  border-width: 2px;
+  border-style: double;
+  border-radius: 4px;
+}
+
+.dronecard50m {
+  padding: 10px;
+  margin: 20px;
+  border-color: orange;
+  border-width: 2px;
+  border-style: double;
+  border-radius: 4px;
+}
+
+.dronecard100m {
+  padding: 10px;
+  margin: 20px;
+  border-color: yellow;
   border-width: 2px;
   border-style: double;
   border-radius: 4px;
