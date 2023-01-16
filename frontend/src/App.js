@@ -8,8 +8,11 @@ const App = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const Url = process.env.REACT_APP_URL;
+  console.log(Url);
+
   const getDroneData = async () => {
-    const { data } = await axios.get("http://localhost:3001/").catch((err) => {
+    const { data } = await axios.get(Url).catch((err) => {
       console.log(err);
     });
     setData(data);
