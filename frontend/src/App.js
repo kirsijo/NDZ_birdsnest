@@ -9,7 +9,6 @@ const App = () => {
   const [loading, setLoading] = useState(false);
 
   const Url = process.env.REACT_APP_URL;
-  console.log(Url);
 
   const getDroneData = async () => {
     const { data } = await axios.get(Url).catch((err) => {
@@ -51,6 +50,7 @@ const App = () => {
           ))
         )}
       </div>
+      <div>{data.length === 0 && <NoSightings />}</div>
     </div>
   );
 };
