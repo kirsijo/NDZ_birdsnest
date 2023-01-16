@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const getDroneData = async () => {
     const { data } = await axios.get("http://localhost:3001/").catch((err) => {
@@ -23,8 +23,6 @@ const App = () => {
       clearInterval(interval);
     };
   }, []);
-
-  console.log(data);
 
   return (
     <div className="App">
