@@ -10,21 +10,20 @@ const App = () => {
 
   const Url = process.env.REACT_APP_URL;
 
-  const getDroneData = async () => {
-    const { data } = await axios.get(Url).catch((err) => {
-      console.log(err);
-    });
-    setData(data);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getDroneData = async () => {
+      const { data } = await axios.get(Url).catch((err) => {
+        console.log(err);
+      });
+      setData(data);
+      setLoading(false);
+    };
     getDroneData();
     const interval = setInterval(() => getDroneData(), 35000);
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [Url]);
 
   return (
     <div className="App">
