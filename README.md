@@ -7,13 +7,13 @@
 
 -Please note: once the Reaktor APIs are no longer active, it will not be possible to run the app.
 
-### To run the node.js app locally (https://localhost:3001):
+### To run the node.js app locally (localhost:3001):
 
 ```shell
 npm run start
 ```
 
-### To run the front end (https://localhost:3000):
+### To run the front end (localhost:3000):
 
 ```shell
 cd frontend
