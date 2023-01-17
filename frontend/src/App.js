@@ -19,7 +19,7 @@ const App = () => {
       setLoading(false);
     };
     getDroneData();
-    const interval = setInterval(() => getDroneData(), 35000);
+    const interval = setInterval(() => getDroneData(), 10000);
     return () => {
       clearInterval(interval);
     };
